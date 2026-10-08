@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: habit-tracker-backend
+  profiles:
+    active: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    # Day 2 me hum ise Neon PostgreSQL se connect karenge
+    url: jdbc:postgresql://localhost:5432/habit_tracker_dev
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false # Senior-level: avoids lazy loading leaks in web layer
