@@ -14,11 +14,20 @@ spring:
       on-profile: dev
   datasource:
     # Day 2 me hum ise Neon PostgreSQL se connect karenge
-    url: jdbc:postgresql://localhost:5432/habit_tracker_dev
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/habit_tracker_dev}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: validate
     show-sql: true
-    open-in-view: false # Senior-level: avoids lazy loading leaks in web layer
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
